@@ -1,0 +1,45 @@
+# Local development infrastructure for DigiLog.
+# Brings up PostgreSQL + Redis so you can run the backend against real services.
+#
+#   docker compose -f docker/docker-compose.dev.yml up -d
+#   cd backend && npm run prisma:migrate && npm run db:seed && npm run dev
+#
+# The full application stack (frontend + backend images) is defined in
+# docker-compose.yml (added in the deployment milestone).
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: digilog-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: digilog
+      POSTGRES_PASSWORD: digilog
+      POSTGRES_DB: digilog
+    ports:
+      - '5432:5432'
+    volumes:
+      - digilog_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U digilog -d digilog']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: digilog-redis
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    volumes:
+      - digilog_redisdata:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  digilog_pgdata:
+  digilog_redisdata:

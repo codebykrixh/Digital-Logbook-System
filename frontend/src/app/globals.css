@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 243 75% 59%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 243 75% 96%;
+    --accent-foreground: 243 75% 40%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 152 60% 40%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 243 75% 59%;
+
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 224 47% 6%;
+    --foreground: 210 40% 98%;
+
+    --card: 224 39% 9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 224 39% 9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 243 90% 68%;
+    --primary-foreground: 224 47% 6%;
+
+    --secondary: 223 30% 16%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 223 30% 15%;
+    --muted-foreground: 217 20% 65%;
+
+    --accent: 243 40% 20%;
+    --accent-foreground: 243 90% 85%;
+
+    --destructive: 0 63% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 152 55% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 55%;
+    --warning-foreground: 224 47% 6%;
+
+    --border: 223 25% 18%;
+    --input: 223 25% 20%;
+    --ring: 243 90% 68%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: 'rlig' 1, 'calt' 1, 'ss01' 1;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    @apply bg-primary/20;
+  }
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-muted-foreground/25;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/40;
+    background-clip: content-box;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-background/60 backdrop-blur-xl backdrop-saturate-150;
+  }
+  .glass-border {
+    @apply border border-white/10 dark:border-white/[0.06];
+  }
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary via-indigo-500 to-violet-500 bg-clip-text text-transparent;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  /* Skeleton shimmer */
+  .skeleton {
+    @apply relative overflow-hidden bg-muted;
+  }
+  .skeleton::after {
+    @apply absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/10 to-transparent content-[''];
+  }
+}
+
+@layer utilities {
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+  .animation-delay-600 {
+    animation-delay: 600ms;
+  }
+  .mask-fade-bottom {
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+}
